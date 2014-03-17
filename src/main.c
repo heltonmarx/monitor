@@ -144,7 +144,7 @@ static struct argp parser = {
     options,
     parse_opt,
     NULL,
-    "Super simple monitoring program processes\n",
+    "Super simple process monitor\n",
     NULL,
     NULL,
     NULL
