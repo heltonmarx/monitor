@@ -6,6 +6,11 @@
  *	@brief utils functions
  */
 
+
+#include <sys/user.h>
+#include <sys/sysctl.h>
+#include <sys/types.h>
+
 #ifndef UNUSED_ARG
 #define UNUSED_ARG(arg)  (void)arg
 #endif  /* UNUSED_ARG   */
@@ -51,5 +56,16 @@ int is_directory(const char *dirname);
  *  @return     On error, -1 is returned.
  */
 int is_wholly_numeric(const char *str);
+
+/**
+ *  Get the pid of process, parsing process removing arguments
+ *  of process.
+ *
+ *  @param [in] process String with process name
+ *
+ *  @return     Success, pid of process is returned.
+ *  @return     On error, -1 is returned.
+ */
+pid_t get_pidof(const char *process);
 
 #endif	/* UTILS_H_INCLUDED */

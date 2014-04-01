@@ -25,7 +25,10 @@
 
 #define FILENAMELEN         256
 #define LINELEN             256
+
+#ifndef PAGE_SIZE
 #define PAGE_SIZE           4096
+#endif  /* PAGE_SIZE */
 
 #define PROC_DIR_NAME       "/proc"
 #define CMDLINE_NAME        "cmdline"

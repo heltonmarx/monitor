@@ -153,7 +153,7 @@ static struct argp parser = {
 void _exit(int sig)
 {
     pid_t pid = getpid();
-    pid_t ppid = pidof(monitor.process);
+    pid_t ppid = get_pidof(monitor.process);
 
     log_debug("kill by signal %d - pid: %d, ppid: %d\n", sig, (int)pid, (int)ppid);
 

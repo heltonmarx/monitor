@@ -1,16 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <regex.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <unistd.h>
-#include <ctype.h>
-
+#include <assert.h>
+#include <string.h>
+#include <fcntl.h>
+#include <signal.h>
+#include <stdint.h>
+#include <sys/types.h>
 #include <sys/time.h>
-#include <sys/resource.h>
-
+#include <sys/wait.h>
+#include <sys/stat.h>
 #include <errno.h>
+#include <argp.h>
+#include <regex.h>
+
+#include <stddef.h>
+#include <errno.h>
+#include <dirent.h>
 
 #include "utils.h"
 #include "logger.h"
@@ -63,3 +69,19 @@ int is_wholly_numeric(const char *str)
     return 0;
 }
 
+pid_t get_pidof(const char *process)
+{
+    char name[2048];
+    const char *p;
+    long len;
+
+    if (!process || (strlen(process) == 0)) {
+        return -1;
+    }
+    memset(name,0x00, sizeof(name));
+
+    p = strchr(process, ' ');
+    len = (p == NULL) ? (long)sizeof(name) : (p - process);
+    strncpy(name, process, len);
+    return pidof(name);
+}
