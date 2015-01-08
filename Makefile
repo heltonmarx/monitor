@@ -11,7 +11,7 @@ OBJS    ?= $(addprefix , $(SOURCES:.c=.o))
 #		2. MINOR version when you add functionality in a backwards-compatible manner, and
 #		3. PATCH version when you make backwards-compatible bug fixes.
 #----------------------------------------
-VERSION := 0.1.0
+VERSION := 1.0.0
 
 #----------------------------------------
 #	Common CFLAGS
