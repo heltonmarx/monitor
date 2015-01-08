@@ -19,6 +19,7 @@
 #include <dirent.h>
 
 #include "utils.h"
+#include "process.h"
 #include "logger.h"
 
 int check_regex(const char *er, const char *txt)
