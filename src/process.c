@@ -60,7 +60,7 @@ int pidof(const char *process)
 
     DIR *proc = NULL;
     struct dirent *de;
-    char cl_name[FILENAMELEN];
+    char cl_name[1024];
     char p_name[LINELEN];
     char p_search[LINELEN];
 
@@ -93,14 +93,15 @@ int pidof(const char *process)
     }
 
     while ((pid < 0) && (de = readdir(proc))) {
-        char d_name[FILENAMELEN];
-        sprintf(d_name, "%s/%s", PROC_DIR_NAME, de->d_name);
+        int n = (FILENAMELEN + sizeof(PROC_DIR_NAME));
+		char d_name[n];
+        snprintf(d_name, n, "%s/%s", PROC_DIR_NAME, de->d_name);
 
         /* ...if the entry is a numerically-named directory...*/
         if ((is_directory(d_name) == 0) &&
             (is_wholly_numeric(de->d_name) == 0)) {
             /* Open pid/cmdline file for reading.  Try for command-line. */
-            sprintf(cl_name, "%s/%s/%s", PROC_DIR_NAME, de->d_name, CMDLINE_NAME);
+            snprintf(cl_name, sizeof(cl_name), "%s/%s/%s", PROC_DIR_NAME, de->d_name, CMDLINE_NAME);
             if (getname((const char *)cl_name, p_name, sizeof(p_name)) != 0) {
                 goto on_exit;
             }
@@ -109,14 +110,14 @@ int pidof(const char *process)
              *  line of the pid/stat file.
              */
             if (strlen(p_name) != 0) {
-                char st_name[FILENAMELEN];
+                char st_name[1024];
                 char stat_name[LINELEN];
                 char *s;
                 int i;
                 /*
                 * Open pid/stat file for reading.
                 */
-                sprintf(st_name, "%s/%s/%s", PROC_DIR_NAME, de->d_name, STAT_NAME);
+                snprintf(st_name, sizeof(st_name), "%s/%s/%s", PROC_DIR_NAME, de->d_name, STAT_NAME);
                 if (getname((const char *)st_name, stat_name, sizeof(stat_name)) != 0) {
                     goto on_exit;
                 }
