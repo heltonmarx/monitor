@@ -1,7 +1,7 @@
-CC:=gcc
-
+CC  	:=gcc
 SOURCES ?= $(wildcard src/*.c)
 OBJS    ?= $(addprefix , $(SOURCES:.c=.o))
+UNAME_S := $(shell uname -s)
 
 #----------------------------------------
 #	Softwares Version
@@ -23,6 +23,15 @@ CFLAGS += -I. -Iinclude/
 CFLAGS += -D'RELEASE="$(VERSION)"'
 
 LDFLAGS +=
+
+## Mac OS X (supports argv)
+##  brew install argp-standalone
+##
+ifeq ($(UNAME_S), Darwin)
+CFLAGS  += -I/usr/local/include/
+LDFLAGS += -L/usr/local/lib/ -largp
+endif
+
 
 TARGET := monitor
 

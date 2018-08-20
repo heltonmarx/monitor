@@ -109,7 +109,7 @@ int start(monitor_t * mon)
             signal(SIGQUIT, SIG_DFL);
 
             memset(process, 0x00, sizeof(process));
-            if (!mon->args || !strlen(mon->args)) {
+            if (strlen(mon->args) == 0) {
                 snprintf(process, sizeof(process), "%s ", mon->process);
             } else {
                 snprintf(process, sizeof(process), "%s %s", mon->process, mon->args);
